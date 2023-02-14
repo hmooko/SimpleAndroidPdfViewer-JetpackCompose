@@ -50,6 +50,8 @@ android {
 
 dependencies {
 
+    implementation 'androidx.compose.foundation:foundation:1.4.0-alpha04'
+
     /*Hilt for Navigation*/
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
