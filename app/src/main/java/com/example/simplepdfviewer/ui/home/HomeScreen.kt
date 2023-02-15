@@ -45,7 +45,8 @@ fun HomeScreen(onPdfClick: (Int) -> Unit, viewModel: HomeViewModel, modifier: Mo
                 .padding(10.dp),
             columns = GridCells.Fixed(3),
             verticalArrangement = Arrangement.spacedBy(15.dp),
-            horizontalArrangement = Arrangement.spacedBy(15.dp)
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            contentPadding = PaddingValues(15.dp)
         ) {
             items(items = uiState.pdfList) { pdf ->
                 Card(
@@ -85,7 +86,6 @@ private fun AddButton(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         result.data?.data?.let {
-            // TODO: Api를 통해 얻은 파일의 액세스를 앱이 다시 시작해도 유지하기 위한 메소드
             context.contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             viewModel.addPdf(it)
         }
@@ -114,13 +114,5 @@ private fun AddButton(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
             contentDescription = null,
             tint = Yellow
         )
-    }
-}
-
-@Preview
-@Composable
-private fun HomePreview() {
-    SimplePDFViewerTheme {
-
     }
 }

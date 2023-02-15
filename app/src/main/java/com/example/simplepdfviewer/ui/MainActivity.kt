@@ -1,4 +1,4 @@
-package com.example.simplepdfviewer
+package com.example.simplepdfviewer.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
