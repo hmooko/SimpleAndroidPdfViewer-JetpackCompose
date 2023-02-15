@@ -1,4 +1,4 @@
-package com.example.simplepdfviewer.ui
+package com.example.simplepdfviewer.ui.pdfviewer
 
 import android.app.Application
 import android.graphics.Bitmap
