@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -60,6 +61,19 @@ fun HomeScreen(onPdfClick: (Int) -> Unit, viewModel: HomeViewModel, modifier: Mo
                         modifier = modifier
                             .height(150.dp)
                     )
+                    Box(
+                        modifier.fillMaxSize(),
+                        contentAlignment = Alignment.TopEnd
+                    ) {
+                        IconButton(onClick = {
+                            viewModel.popPdf(pdf.content.id)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null
+                            )
+                        }
+                    }
                 }
             }
             item {
