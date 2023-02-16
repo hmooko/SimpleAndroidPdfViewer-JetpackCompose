@@ -15,5 +15,5 @@ class PdfRepository @Inject constructor(
 
     suspend fun insert(databasePdf: DatabasePdf) = pdfDatasource.insert(databasePdf)
 
-    suspend fun delete(databasePdf: DatabasePdf) = pdfDatasource.delete(databasePdf)
+    suspend fun delete(id: Int) = pdfDatasource.delete(id)
 }

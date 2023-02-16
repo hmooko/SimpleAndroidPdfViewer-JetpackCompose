@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
+import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.AndroidViewModel
@@ -31,17 +32,23 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            pdfRepository.getAll().collect { pdfList ->
+            pdfRepository.getAll().collect { databasePdfList ->
+                val pdfList = databasePdfList.asDomainModel(application)
+                for (pdf in pdfList) {
+                    if (pdf.thumbnail == null) {
+                        pdfRepository.delete(pdf.content.id)
+                    }
+                }
                 _uiState.update {
-                    it.copy(pdfList = pdfList.asDomainModel(application))
+                    it.copy(pdfList = databasePdfList.asDomainModel(application))
                 }
             }
         }
     }
 
-    fun popPdf(pdf: DatabasePdf) {
+    fun popPdf(id: Int) {
         viewModelScope.launch {
-            pdfRepository.delete(pdf)
+            pdfRepository.delete(id)
         }
     }
 

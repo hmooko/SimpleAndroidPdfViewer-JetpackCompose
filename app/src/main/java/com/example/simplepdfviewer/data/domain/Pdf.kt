@@ -5,5 +5,5 @@ import com.example.simplepdfviewer.data.database.DatabasePdf
 
 data class Pdf(
     val content: DatabasePdf,
-    val thumbnail: ImageBitmap
+    val thumbnail: ImageBitmap?
 )

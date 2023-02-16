@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
+import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.room.ColumnInfo
@@ -19,20 +20,27 @@ data class DatabasePdf(
 }
 
 fun List<DatabasePdf>.asDomainModel(application: Application): List<Pdf> {
-
     return map {
-        val input = application.applicationContext.contentResolver.openFileDescriptor(it.pdfUri, "r")
-        val renderer = PdfRenderer(input!!)
-        val page = renderer.openPage(0)
-        val bitmap =
-            Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
-        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-        page.close()
-        renderer.close()
+        try {
+            val input =
+                application.applicationContext.contentResolver.openFileDescriptor(it.pdfUri, "r")
+            val renderer = PdfRenderer(input!!)
+            val page = renderer.openPage(0)
+            val bitmap =
+                Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
+            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+            page.close()
+            renderer.close()
 
-        Pdf(
-            it,
-            bitmap.asImageBitmap()
-        )
+            Pdf(
+                it,
+                bitmap.asImageBitmap()
+            )
+        } catch (e: Exception) {
+            Pdf(
+                it,
+                null
+            )
+        }
     }
 }

@@ -25,8 +25,8 @@ class PdfDatasource @Inject constructor(
             pdfDao.insert(databasePdf)
         }
 
-    suspend fun delete(databasePdf: DatabasePdf) =
+    suspend fun delete(id: Int) =
         withContext(ioDispatcher) {
-            pdfDao.delete(databasePdf)
+            pdfDao.delete(id)
         }
 }

@@ -15,6 +15,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,7 +54,7 @@ fun HomeScreen(onPdfClick: (Int) -> Unit, viewModel: HomeViewModel, modifier: Mo
                         }
                 ) {
                     Image(
-                        bitmap = pdf.thumbnail,
+                        bitmap = pdf.thumbnail!!,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = modifier

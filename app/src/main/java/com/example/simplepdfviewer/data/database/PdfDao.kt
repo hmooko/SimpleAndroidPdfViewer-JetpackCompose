@@ -17,8 +17,8 @@ interface PdfDao {
     @Insert
     fun insert(databasePdf: DatabasePdf)
 
-    @Delete
-    fun delete(databasePdf: DatabasePdf)
+    @Query("DELETE FROM pdf_list WHERE id = :id")
+    fun delete(id: Int)
 
     @Query("SELECT * FROM pdf_list WHERE id = :id")
     fun findById(id: Int): Flow<DatabasePdf>
